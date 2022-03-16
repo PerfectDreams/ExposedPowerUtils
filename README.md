@@ -37,7 +37,7 @@ Contains PostgreSQL extensions and utilities for Exposed.
   * You get and store data using `String`s, the way how you are going to serialize and deserialize your data is up to you!
 * Create and update PostgreSQL enums with Java enums
 
-**Example:** https://github.com/PerfectDreams/ExposedPowerUtils/blob/80fa05d419ae468b7901bcf0567e3365906b384d/tests/src/test/kotlin/TestStuff.kt#L28
+**Example:** https://github.com/PerfectDreams/ExposedPowerUtils/blob/80fa05d419ae468b7901bcf0567e3365906b384d/tests/src/test/kotlin/TestStuff.kt#L27-L52
 
 ### `:postgres-java-time`
 
@@ -46,7 +46,7 @@ Contains PostgreSQL extensions and utilities for Exposed.
 * Avoids the issue described in [#1536](https://github.com/JetBrains/Exposed/issues/1356), [#1305](https://github.com/JetBrains/Exposed/issues/1305), [#886](https://github.com/JetBrains/Exposed/issues/886)
 * Here's why you should use `TIMESTAMP WITH TIMEZONE`: https://www.toolbox.com/tech/data-management/blogs/zone-of-misunderstanding-092811/
 
-**Example:** https://github.com/PerfectDreams/ExposedPowerUtils/blob/80fa05d419ae468b7901bcf0567e3365906b384d/tests/src/test/kotlin/PostgresJavaTimeTest.kt#L26
+**Example:** https://github.com/PerfectDreams/ExposedPowerUtils/blob/80fa05d419ae468b7901bcf0567e3365906b384d/tests/src/test/kotlin/PostgresJavaTimeTest.kt#L23-L60
 
 ---
 
