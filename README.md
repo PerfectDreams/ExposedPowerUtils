@@ -27,7 +27,7 @@ dependencies {
 ```
 
 ## Modules
-* [Exposed Power User Utils](/postgres-java-time)
+* [Exposed Power User Utils](/exposed-power-utils)
 * [PostgreSQL Timestamp Support (Java Time)](/postgres-java-time)
 * [PostgreSQL Power User Utils](/postgres-power-utils)
 
