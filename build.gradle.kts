@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.7.10"
     `maven-publish`
 }
 
-val exposedPowerUtils = "1.0.0"
+val exposedPowerUtils = "1.1.0"
 
 allprojects {
     group = "net.perfectdreams.exposedpowerutils"
