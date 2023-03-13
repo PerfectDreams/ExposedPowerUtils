@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.exposed:exposed-core:0.37.3")
+    implementation("org.jetbrains.exposed:exposed-core:0.41.1")
     implementation("org.postgresql:postgresql:42.3.3")
 }
 

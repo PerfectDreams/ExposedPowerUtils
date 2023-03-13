@@ -35,7 +35,7 @@ class UpsertTest {
                 it[Counter.counter] = 4002
             }
 
-            val counterResult = Counter.select { Counter.id eq 1 }.first()
+            val counterResult = Counter.select { Counter.id eq 1L }.first()
             val r = counterResult[Counter.counter]
 
             assert(r == 4002) { "Counter result is not 4002!" }

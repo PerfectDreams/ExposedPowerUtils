@@ -64,7 +64,7 @@ class SuspendableNestedTransactionTest {
         }
     }
 
-    suspend fun differentFunctionCall(t1: Transaction, db: Database) = transaction(Dispatchers.IO, db) {
+    private suspend fun differentFunctionCall(t1: Transaction, db: Database) = transaction(Dispatchers.IO, db) {
         assert(t1 == this) { "Different Function Call transaction is not equal to Transaction1!" }
     }
 }

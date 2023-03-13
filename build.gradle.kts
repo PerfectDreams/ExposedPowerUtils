@@ -5,7 +5,7 @@ plugins {
     `maven-publish`
 }
 
-val exposedPowerUtils = "1.1.0"
+val exposedPowerUtils = "1.2.0"
 
 allprojects {
     group = "net.perfectdreams.exposedpowerutils"

@@ -28,7 +28,7 @@ private val logger = KotlinLogging.logger {}
  */
 // https://github.com/JetBrains/Exposed/issues/1003
 suspend fun <T> transaction(
-    dispatcher: CoroutineDispatcher,
+    context: CoroutineContext,
     database: Database?,
     repetitions: Int = 5,
     transactionIsolation: Int? = null,
@@ -53,7 +53,7 @@ suspend fun <T> transaction(
         try {
             return beforeNewTransactionCallBlock.invoke {
                 return@invoke org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction(
-                    dispatcher,
+                    context,
                     database,
                     transactionIsolation
                 ) {
