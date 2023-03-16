@@ -26,10 +26,13 @@ class JavaTimestampWithTimeZoneColumnType : ColumnType(), IDateColumnType {
     }
 
     override fun valueFromDB(value: Any): Instant {
-        if (value !is Timestamp)
-            error("$value is not a java.sql.Timestamp!")
+        if (value is Timestamp) {
+            return value.toInstant()
+        } else if (value is Instant) {
+            return value
+        }
 
-        return value.toInstant()
+        error("$value is not a java.sql.Timestamp nor a java.time.Instant!")
     }
 
     override fun readObject(rs: ResultSet, index: Int): Any? {

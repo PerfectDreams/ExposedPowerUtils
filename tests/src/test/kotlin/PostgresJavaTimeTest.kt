@@ -1,4 +1,7 @@
 import net.perfectdreams.exposedpowerutils.sql.javatime.timestampWithTimeZone
+import org.jetbrains.exposed.dao.LongEntity
+import org.jetbrains.exposed.dao.LongEntityClass
+import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -46,6 +49,11 @@ class PostgresJavaTimeTest {
                 it[ActionLog.text] = "Hello from America/Sao_Paulo!"
             }
 
+            ActionLogDAO.new {
+                this.timestamp = now
+                this.text = "Hello from America/Sao_Paulo! (DAO)"
+            }
+
             TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 
             val timezone1 = ActionLog.select { ActionLog.id eq id1 }.first()[ActionLog.timestamp]
@@ -57,5 +65,12 @@ class PostgresJavaTimeTest {
     object ActionLog : LongIdTable() {
         val timestamp = timestampWithTimeZone("timestamp")
         val text = text("text")
+    }
+
+    class ActionLogDAO(id: EntityID<Long>) : LongEntity(id) {
+        companion object : LongEntityClass<ActionLogDAO>(ActionLog)
+
+        var text by ActionLog.text
+        var timestamp by ActionLog.timestamp
     }
 }
