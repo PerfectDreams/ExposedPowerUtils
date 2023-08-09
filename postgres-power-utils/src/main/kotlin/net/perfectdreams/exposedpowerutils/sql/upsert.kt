@@ -33,11 +33,11 @@ class InsertOrUpdate<Key : Any>(
     isIgnore: Boolean = false,
     private vararg val keys: Column<*>
 ) : InsertStatement<Key>(table, isIgnore) {
-    override fun prepareSQL(transaction: Transaction): String {
+    override fun prepareSQL(transaction: Transaction, prepared: Boolean): String {
         val tm = TransactionManager.current()
         val updateSetter = (table.columns - keys).joinToString { "${tm.identity(it)} = EXCLUDED.${tm.identity(it)}" }
         val onConflict = "ON CONFLICT (${keys.joinToString { tm.identity(it) }}) DO UPDATE SET $updateSetter"
-        return "${super.prepareSQL(transaction)} $onConflict"
+        return "${super.prepareSQL(transaction, prepared)} $onConflict"
     }
 }
 
@@ -78,10 +78,10 @@ class BatchInsertOrUpdate(
     private vararg val keys: Column<*>,
     shouldReturnGeneratedValues: Boolean
 ) : BatchInsertStatement(table, isIgnore, shouldReturnGeneratedValues) {
-    override fun prepareSQL(transaction: Transaction): String {
+    override fun prepareSQL(transaction: Transaction, prepared: Boolean): String {
         val tm = TransactionManager.current()
         val updateSetter = (table.columns - keys).joinToString { "${tm.identity(it)} = EXCLUDED.${tm.identity(it)}" }
         val onConflict = "ON CONFLICT (${keys.joinToString { tm.identity(it) }}) DO UPDATE SET $updateSetter"
-        return "${super.prepareSQL(transaction)} $onConflict"
+        return "${super.prepareSQL(transaction, prepared)} $onConflict"
     }
 }

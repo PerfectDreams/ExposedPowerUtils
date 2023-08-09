@@ -6,8 +6,8 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.exposed:exposed-core:0.41.1")
-    implementation("org.postgresql:postgresql:42.3.3")
+    implementation("org.jetbrains.exposed:exposed-core:0.42.0")
+    implementation("org.postgresql:postgresql:42.3.8")
 }
 
 tasks.withType<KotlinCompile> {
