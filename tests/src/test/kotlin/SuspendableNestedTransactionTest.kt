@@ -68,7 +68,8 @@ class SuspendableNestedTransactionTest {
             }
         }
     }
-
+    
+    // This tests a bug related to this change https://github.com/JetBrains/Exposed/commit/88315512d392a7f723ae387f87f9656ccf9b8210
     @Test
     fun `test suspendable nested transactions repeat workaround`() {
         val hikariConfig = HikariConfig()
@@ -82,24 +83,15 @@ class SuspendableNestedTransactionTest {
 
         val test = Database.connect(hikariDataSource)
 
-        val totalRepeats = 5
-        var repeats = 0
-
-        println("starting REALLL")
         runBlocking {
             coroutineScope {
                 transaction(Dispatchers.IO, test) {
-                    println("creating the MISSING TABLES AND COLUMNS")
                     SchemaUtils.createMissingTablesAndColumns(Names)
                 }
 
-                println("DOING THE REPEAT THINGY WOW")
                 repeat(10) {
                     try {
-                        transaction(Dispatchers.IO, test, repetitions = totalRepeats) {
-                            println("EXECUTING IT!!!")
-                            repeats++
-
+                        transaction(Dispatchers.IO, test, repetitions = 5) {
                             // We want to intentionally throw an error here
                             Names.select { Names.name.regexp("\\Q") }
                                 .toList()
