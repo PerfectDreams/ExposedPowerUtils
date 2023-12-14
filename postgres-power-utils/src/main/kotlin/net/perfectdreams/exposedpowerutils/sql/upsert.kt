@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.statements.BatchInsertStatement
 import org.jetbrains.exposed.sql.statements.InsertStatement
+import org.jetbrains.exposed.sql.statements.api.PreparedStatementApi
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 
 // Based off https://github.com/JetBrains/Exposed/issues/167#issuecomment-952734972
@@ -36,8 +37,19 @@ class InsertOrUpdate<Key : Any>(
     override fun prepareSQL(transaction: Transaction, prepared: Boolean): String {
         val tm = TransactionManager.current()
         val updateSetter = (table.columns - keys).joinToString { "${tm.identity(it)} = EXCLUDED.${tm.identity(it)}" }
-        val onConflict = "ON CONFLICT (${keys.joinToString { tm.identity(it) }}) DO UPDATE SET $updateSetter"
+        val onConflict = if (updateSetter.isEmpty()) {
+            "ON CONFLICT (${keys.joinToString { tm.identity(it) }}) DO NOTHING"
+        } else {
+            "ON CONFLICT (${keys.joinToString { tm.identity(it) }}) DO UPDATE SET $updateSetter"
+        }
         return "${super.prepareSQL(transaction, prepared)} $onConflict"
+    }
+
+    override fun prepared(transaction: Transaction, sql: String): PreparedStatementApi {
+        return if (keys.isEmpty())
+            transaction.connection.prepareStatement(sql, false)
+        else
+            transaction.connection.prepareStatement(sql, true)
     }
 }
 

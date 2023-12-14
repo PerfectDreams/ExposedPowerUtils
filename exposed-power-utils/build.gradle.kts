@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.exposed:exposed-core:0.42.0")
+    implementation("org.jetbrains.exposed:exposed-core:0.45.0")
     implementation("io.github.microutils:kotlin-logging:2.1.23")
 }
 

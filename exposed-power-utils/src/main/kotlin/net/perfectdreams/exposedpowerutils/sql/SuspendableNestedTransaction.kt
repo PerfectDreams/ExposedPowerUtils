@@ -57,9 +57,11 @@ suspend fun <T> transaction(
                     database,
                     transactionIsolation
                 ) {
-                    // We are handling the repetition attempts ourselves, see https://github.com/JetBrains/Exposed/commit/88315512d392a7f723ae387f87f9656ccf9b8210
+                    // We are handling the repetition attempts ourselves, see h
+                    // https://github.com/JetBrains/Exposed/commit/88315512d392a7f723ae387f87f9656ccf9b8210
                     // If we keep Exposed handling the repetition attempts, it will throw exceptions saying that the connection is closed
                     repetitionAttempts = 0
+                    
                     withContext(coroutineContext + CoroutineTransaction(this)) {
                         statement.invoke(this@newSuspendedTransaction)
                     }
