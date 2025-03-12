@@ -1,5 +1,7 @@
 <h1 align="center">✨ ExposedPowerUtils ✨</h1>
 
+**Archived:** Recently what I've been doing is manually copying the code from this repository to my own projects, feel free to do the same. Most of the code here still works in Exposed 0.60.0 with just a few tweaks.
+
 Utilities and Extensions for [Exposed](https://github.com/JetBrains/Exposed), because while Exposed is a pretty nice framework, it tries to support a lot of SQL dialects, so a lot of advanced features that aren't supported by the SQL standard aren't supported in Exposed.
 
 Thankfully Exposed is very extendable, allowing you to support features that it doesn't support out of the box! This repository contains a bunch of Exposed tidbits that I use on a lot of my projects.
